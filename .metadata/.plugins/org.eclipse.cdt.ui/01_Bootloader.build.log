@@ -1,0 +1,7 @@
+08:45:04 **** Clean-only build of configuration Debug for project 01_Bootloader ****
+make -j4 clean 
+rm -rf *
+ 
+
+08:45:05 Build Finished. 0 errors, 0 warnings. (took 328ms)
+

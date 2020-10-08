@@ -1,1 +1,4 @@
 1602096209583	Delete resource 'bootloader_STM32F7xxx'
+1602157195995	Rename resource 'bootloader_F767xxx'
+1602157400066	Delete resource 'Bootloader'
+1602157404675	Delete resource 'User_app_STM32F7xxx'

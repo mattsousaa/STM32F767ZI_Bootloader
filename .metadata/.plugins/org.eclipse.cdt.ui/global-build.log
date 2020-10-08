@@ -1,14 +1,4 @@
-16:57:34 **** Incremental Build of configuration Debug for project bootloader_F767xxx ****
-make -j4 all 
-arm-none-eabi-size   bootloader_F767xxx.elf 
-   text	   data	    bss	    dec	    hex	filename
-  19924	    120	   2976	  23020	   59ec	bootloader_F767xxx.elf
-Finished building: default.size.stdout
- 
-16:57:38 **** Incremental Build of configuration Debug for project bootloader_F767xxx ****
-make -j4 all 
-arm-none-eabi-size   bootloader_F767xxx.elf 
-   text	   data	    bss	    dec	    hex	filename
-  19924	    120	   2976	  23020	   59ec	bootloader_F767xxx.elf
-Finished building: default.size.stdout
+08:45:08 **** Clean-only build of configuration Debug for project 02_User_app_STM32F7xxx ****
+make -j4 clean 
+rm -rf *
  

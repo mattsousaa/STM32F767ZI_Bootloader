@@ -1,0 +1,7 @@
+08:45:08 **** Clean-only build of configuration Debug for project 02_User_app_STM32F7xxx ****
+make -j4 clean 
+rm -rf *
+ 
+
+08:45:09 Build Finished. 0 errors, 0 warnings. (took 331ms)
+
