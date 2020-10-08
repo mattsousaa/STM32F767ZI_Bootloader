@@ -13,3 +13,14 @@ such as a USB stick or a network port. The bootloader and the user application s
 * OTP memory of 1024 bytes
 * Option bytes memory of 32 bytes
 * Backup RAM of 4KB
+
+## Reset Sequence and Memory Aliasing of the MCU
+
+** When you reset the MCU, the PC of the processor is loaded with the value 0x0000_0000;
+** Then processor reads the value @ memory location 0x0000_0000 into MSP (Main stack pointer register). That means, processor first initializes the Stack pointer register;
+** After that, processor reads the value @ memory location 0x000_0004 into PC;
+** PC jumps to the reset handler;
+** A reset handler is just a C or Assembly function written by you to carry out any initializations required;
+** From reset handler yoi call your main function of the application;
+
+
