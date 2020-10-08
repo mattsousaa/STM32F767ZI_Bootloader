@@ -21,6 +21,6 @@ such as a USB stick or a network port. The bootloader and the user application s
 3. After that, processor reads the value @ memory location 0x000_0004 into PC;
 4. PC jumps to the reset handler;
 5. A reset handler is just a C or Assembly function written by you to carry out any initializations required;
-6. From reset handler yoi call your main function of the application;
+6. From reset handler you call your main function of the application;
 
 
