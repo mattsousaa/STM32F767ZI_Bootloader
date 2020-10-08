@@ -1,0 +1,13 @@
+1. Erase the flash memory of the board with SMT32Cube Programmer
+
+2. Go to STM32F767ZITX_FLASH.ld in 02_User_app_STM32F7xxx and put:
+
+/* Memories definition */
+MEMORY
+{
+  RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 512K
+  FLASH    (rx)    : ORIGIN = 0x08008000,   LENGTH = 2048K
+}
+
+3. In 02_User_app_STM32F7xxx go to:
+startup_stm32f767zitx.s > SystemInit > system_stm32f7xx.c > VECT_TAB_OFFSET and set #define VECT_TAB_OFFSET  0x8000

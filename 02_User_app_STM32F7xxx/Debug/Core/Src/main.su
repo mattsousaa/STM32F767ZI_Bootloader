@@ -1,0 +1,7 @@
+main.c:73:5:main	16	static
+main.c:118:6:SystemClock_Config	232	static
+main.c:175:13:MX_ETH_Init	8	static
+main.c:215:13:MX_USART3_UART_Init	8	static
+main.c:248:13:MX_USB_OTG_FS_PCD_Init	8	static
+main.c:281:13:MX_GPIO_Init	56	static
+main.c:339:6:Error_Handler	4	static

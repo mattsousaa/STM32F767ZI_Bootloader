@@ -42,7 +42,7 @@ static void printmsg(char *format,...);
 
 char somedata[] = "Hello from Bootloader\r\n";
 
-int main(void) {
+int main(void){
 
 	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
 	HAL_Init();
@@ -325,7 +325,31 @@ void printmsg(char *format, ...){
  */
 void bootloader_jump_to_user_app(void){
 
+	//just a function pointer to hold the address of the reset handler of the user app.
+	void (*app_reset_handler)(void);
 
+	printmsg("BL_DEBUG_MSG:bootloader_jump_to_user_app\n");
+
+	// 1. configure the MSP by reading the value from the base address of the sector 2
+	uint32_t msp_value = *(volatile uint32_t *)FLASH_SECTOR2_BASE_ADDRESS;
+	printmsg("BL_DEBUG_MSG:MSP value : %#x\n", msp_value);
+
+	//This function comes from CMSIS.
+	__set_MSP(msp_value);
+
+	//SCB->VTOR = FLASH_SECTOR1_BASE_ADDRESS;
+
+	/* 2. Now fetch the reset handler address of the user application
+	 * from the location FLASH_SECTOR2_BASE_ADDRESS+4
+	 */
+	uint32_t resethandler_address = *(volatile uint32_t*)(FLASH_SECTOR2_BASE_ADDRESS + 4);
+
+	app_reset_handler = (void*) resethandler_address;
+
+	printmsg("BL_DEBUG_MSG: app reset handler addr : %#x\n", app_reset_handler);
+
+	//3. jump to reset handler of the user application
+	app_reset_handler();
 }
 
 void bootloader_uart_read_data(void){

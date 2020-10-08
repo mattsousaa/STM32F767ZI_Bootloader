@@ -1,7 +1,10 @@
-08:45:04 **** Clean-only build of configuration Debug for project 01_Bootloader ****
-make -j4 clean 
-rm -rf *
+15:01:59 **** Incremental Build of configuration Debug for project 01_Bootloader ****
+make -j4 all 
+arm-none-eabi-size   01_Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20300	    120	   2976	  23396	   5b64	01_Bootloader.elf
+Finished building: default.size.stdout
  
 
-08:45:05 Build Finished. 0 errors, 0 warnings. (took 328ms)
+15:02:00 Build Finished. 0 errors, 0 warnings. (took 435ms)
 

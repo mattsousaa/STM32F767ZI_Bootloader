@@ -60,7 +60,7 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
-char somedata[] = "Hello from Bootloader\r\n";
+char somedata[] = "Hello From user Application \r\n";
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
@@ -105,11 +105,8 @@ int main(void){
 	while(1){
 		/* USER CODE END WHILE */
 		uint32_t current_tick = HAL_GetTick();
-		HAL_UART_Transmit(&huart3, (uint8_t*) somedata, sizeof(somedata),
-				HAL_MAX_DELAY);
-		while (HAL_GetTick() <= (current_tick + 500))
-			;
-
+		HAL_UART_Transmit(&huart3, (uint8_t*) somedata, sizeof(somedata), HAL_MAX_DELAY);
+		while(HAL_GetTick() <= (current_tick + 500));
 	}
 	/* USER CODE END 3 */
 }

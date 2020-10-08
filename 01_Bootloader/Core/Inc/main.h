@@ -110,11 +110,8 @@ void Error_Handler(void);
 #define SWO_GPIO_Port GPIOB
 #define LD2_Pin GPIO_PIN_7
 #define LD2_GPIO_Port GPIOB
-/* USER CODE BEGIN Private defines */
 
-/* USER CODE END Private defines */
-
-/*Bootloader function prototypes */
+#define FLASH_SECTOR2_BASE_ADDRESS 0x08008000U
 
 void bootloader_uart_read_data(void);
 void bootloader_jump_to_user_app(void);
