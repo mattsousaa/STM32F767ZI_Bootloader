@@ -67,9 +67,10 @@ if(HAL_GPIO_ReadPin(USER_Btn_GPIO_Port, USER_Btn_Pin) == GPIO_PIN_SET){
 /* Memories definition */
 MEMORY
 {
-  RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 512K
+  RAM     (xrw)    : ORIGIN = 0x20000000,   LENGTH = 512K
   FLASH    (rx)    : ORIGIN = 0x08008000,   LENGTH = 2048K
 }
 ```
-3. In **02_User_app_STM32F7xxx** go to: [startup_stm32f767zitx.s](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/01_Bootloader/Core/Startup/startup_stm32f767zitx.s) > **SystemInit** > **system_stm32f7xx.c** > **VECT_TAB_OFFSET** and relocate the vector table through the Vector Table offset Register(VTOR) editing the line *#define VECT_TAB_OFFSET  0x8000*.
+3. In **02_User_app_STM32F7xxx** go to: 
+[startup_stm32f767zitx.s](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/01_Bootloader/Core/Startup/startup_stm32f767zitx.s) > **SystemInit** > **system_stm32f7xx.c** > **VECT_TAB_OFFSET** and relocate the vector table through the Vector Table offset Register(VTOR) editing the line *#define VECT_TAB_OFFSET  0x8000*.
 
