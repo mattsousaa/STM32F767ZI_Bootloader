@@ -16,27 +16,27 @@ such as a USB stick or a network port. The bootloader and the user application s
 
 ## Reset Sequence and Memory Aliasing of the MCU
 
-1. When you reset the MCU, the PC of the processor is loaded with the value 0x0000_0000;
-2. Then processor reads the value @ memory location 0x0000_0000 into MSP (Main stack pointer register). That means, processor first initializes the Stack pointer register;
-3. After that, processor reads the value @ memory location 0x000_0004 in to PC;
+1. When you reset the MCU, the PC of the processor is loaded with the value *0x0000_0000*;
+2. Then processor reads the value @ memory location *0x0000_0000* into MSP (Main stack pointer register). That means, processor first initializes the Stack pointer register;
+3. After that, processor reads the value @ memory location *0x0000_0004* in to PC;
 4. PC jumps to the reset handler;
 5. A reset handler is just a C or Assembly function written by you to carry out any initializations required;
 6. From reset handler you call your main function of the application.
 
 ## *All ARM Cortex M Based MCUs right after reset does,*
-* Load value @ Memory addr. 0x0000_0000 in to MSP.
-* Load value @ Memory addr. 0x0000_0004 in to PC (Value = Addr of the reset handler)
+* Load value @ Memory addr. *0x0000_0000* in to MSP.
+* Load value @ Memory addr. *0x0000_0004* in to PC (Value = Addr of the reset handler)
 
 ## *In STM32 Microcontroller,*
-* MSP value stored at 0x0800_0000.
-* Vector table starts from 0x800_0004.
-* Address of the reset handler found at 0x800_0004.
+* MSP value stored at *0x0000_0000*.
+* Vector table starts from *0x0000_0004*.
+* Address of the reset handler found at *0x0000_0004*.
 
-Don't you think we should somehow link 0x0800_0000 to 0x0000_0000? The answer for this is that both addresses can be linked with the technique called "memory aliasing" and it depends on the MCU. For example, in this case by default the base address of the user flash is mapped onto the base address of the memory map, that is 0x0000_0000. By default, the user flash is aliased to the very first address of the memory map that is 0. The image below shows this type of configuration.
+Don't you think we should somehow link *0x0800_0000* to *0x0000_0000*? The answer for this is that both addresses can be linked with the technique called "memory aliasing" and it depends on the MCU. For example, in this case by default the base address of the user flash is mapped onto the base address of the memory map, that is *0x0000_0000*. By default, the user flash is aliased to the very first address of the memory map that is 0. The image below shows this type of configuration.
 
 ![image](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/flash.png)
 
-In this project, the STM native bootloader will not be used. We will create our own Bootloader that will be stored in the first sector of the flash memory (Sector 0 - 32KB). Sector-1 to sector-11 will be used for storing user application. For details, refer to the [reference manual](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/Reference_manual.pdf).  
+In this project, the STM native bootloader will not be used. We will create our own Bootloader that will be stored in the first sector of the flash memory (Sector 0 - 32KB). **Sector-1** to **Sector-11** will be used for storing user application. For details, refer to the [reference manual](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/Reference_manual.pdf).  
 
 
 
