@@ -40,6 +40,6 @@ In this project, the STM native bootloader will not be used. We will create our 
 
 ## BootloaderCode Flow Chart
 
-![image](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/flow_chart.png)
+![image](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/flowchart.png)
 
 
