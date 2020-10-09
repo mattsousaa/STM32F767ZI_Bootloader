@@ -38,7 +38,7 @@ Don't you think we should somehow link *0x0800_0000* to *0x0000_0000*? The answe
 
 In this project, the STM native bootloader will not be used. We will create our own Bootloader that will be stored in the first sector of the flash memory (Sector 0 - 32KB). **Sector-1** to **Sector-11** will be used for storing user application. For details, refer to the [reference manual](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/Reference_manual.pdf).  
 
-## BootloaderCode Flow Chart
+## Bootloader Code Flow Chart
 
 Whenever we reset the microcontroller the Bootloader code which is stored in the sector 0 will run first. Then the Bootloader code will check the status of the user button. If the user button os pressed, then that means if the user button is presses during reset of the microcontroller, then bootloader will execute the function **bootloader_uart_read_data()**. If the user button is not pressed during resetting of the board, then the other path will be executed, that is the bootloader jumps to the user application through function **bootloader_jump_to_user_app()**.
 
