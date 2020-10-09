@@ -34,7 +34,7 @@ such as a USB stick or a network port. The bootloader and the user application s
 
 Don't you think we should somehow link 0x0800_0000 to 0x0000_0000? The answer for this is that both addresses can be linked with the technique called "memory aliasing" and it depends on the MCU. For example, in this case by default the base address of the user flash is mapped onto the base address of the memory map, that is 0x0000_0000. By default, the user flash is aliased to the very first address of the memory map that is 0. The image below shows this type of configuration.
 
-![image](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/flash.png)
+![image](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/flash.png alt="drawing" style="width:200px;)
 
 
 
