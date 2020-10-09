@@ -46,16 +46,16 @@ The [main.c](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/01_
 
 ```C
 if(HAL_GPIO_ReadPin(USER_Btn_GPIO_Port, USER_Btn_Pin) == GPIO_PIN_SET){
-		printmsg("BL_DEBUG_MSG:Button is pressed .. going to BL mode\n\r");
+	printmsg("BL_DEBUG_MSG:Button is pressed .. going to BL mode\n\r");
 
-		//we should continue in bootloader mode
-		bootloader_uart_read_data();
-	} else{
-		printmsg("BL_DEBUG_MSG:Button is not pressed .. executing user app\n");
+	//we should continue in bootloader mode
+	bootloader_uart_read_data();
+} else{
+	printmsg("BL_DEBUG_MSG:Button is not pressed .. executing user app\n");
 
-		//jump to user application
-		bootloader_jump_to_user_app();
-	}
+	//jump to user application
+	bootloader_jump_to_user_app();
+}
 ```
 
 
