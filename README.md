@@ -16,16 +16,16 @@ such as a USB stick or a network port. The bootloader and the user application s
 
 ## Reset Sequence and Memory Aliasing of the MCU
 
-1. When you reset the MCU, the PC of the processor is loaded with the value *0x0000_0000*;
-2. Then processor reads the value @ memory location *0x0000_0000* into MSP (Main stack pointer register). That means, processor first initializes the Stack pointer register;
-3. After that, processor reads the value @ memory location *0x0000_0004* in to PC;
-4. PC jumps to the reset handler;
-5. A reset handler is just a C or Assembly function written by you to carry out any initializations required;
+1. When you reset the MCU, the PC of the processor is loaded with the value *0x0000_0000*.
+2. Then processor reads the value @ memory location *0x0000_0000* into MSP (Main stack pointer register). That means, processor first initializes the Stack pointer register.
+3. After that, processor reads the value @ memory location *0x0000_0004* in to PC.
+4. PC jumps to the reset handler.
+5. A reset handler is just a C or Assembly function written by you to carry out any initializations required.
 6. From reset handler you call your main function of the application.
 
 ## *All ARM Cortex M Based MCUs right after reset does,*
 * Load value @ Memory addr. *0x0000_0000* in to MSP.
-* Load value @ Memory addr. *0x0000_0004* in to PC (Value = Addr of the reset handler)
+* Load value @ Memory addr. *0x0000_0004* in to PC (Value = Addr of the reset handler).
 
 ## *In STM32 Microcontroller,*
 * MSP value stored at *0x0000_0000*.
@@ -60,5 +60,16 @@ if(HAL_GPIO_ReadPin(USER_Btn_GPIO_Port, USER_Btn_Pin) == GPIO_PIN_SET){
 }
 ```
 
-
+## Running User Application on 0x0800_8000
+1. Erase the flash memory of the board with [SMT32Cube Programmer](https://www.st.com/en/development-tools/stm32cubeprog.html).
+2. Go to [STM32F767ZITX_FLASH.ld](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/02_User_app_STM32F7xxx/STM32F767ZITX_FLASH.ld) in **02_User_app_STM32F7xxx** and set:
+```C
+/* Memories definition */
+MEMORY
+{
+  RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 512K
+  FLASH    (rx)    : ORIGIN = 0x08008000,   LENGTH = 2048K
+}
+```
+3. In **02_User_app_STM32F7xxx** go to: [startup_stm32f767zitx.s](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/01_Bootloader/Core/Startup/startup_stm32f767zitx.s) > **SystemInit** > **system_stm32f7xx.c** > **VECT_TAB_OFFSET** and relocate the vector table through the Vector Table offset Register(VTOR) editing the line *#define VECT_TAB_OFFSET  0x8000*.
 
