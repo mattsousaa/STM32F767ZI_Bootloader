@@ -60,7 +60,7 @@ if(HAL_GPIO_ReadPin(USER_Btn_GPIO_Port, USER_Btn_Pin) == GPIO_PIN_SET){
 }
 ```
 
-## Running User Application on 0x0800_8000
+## Running User Application on 0x0800_8000 Address of the MCU
 1. Erase the flash memory of the board with [SMT32Cube Programmer](https://www.st.com/en/development-tools/stm32cubeprog.html).
 2. Go to [STM32F767ZITX_FLASH.ld](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/02_User_app_STM32F7xxx/STM32F767ZITX_FLASH.ld) in **02_User_app_STM32F7xxx** and set:
 ```C
