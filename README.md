@@ -34,7 +34,9 @@ such as a USB stick or a network port. The bootloader and the user application s
 
 Don't you think we should somehow link *0x0800_0000* to *0x0000_0000*? The answer for this is that both addresses can be linked with the technique called "memory aliasing" and it depends on the MCU. For example, in this case by default the base address of the user flash is mapped onto the base address of the memory map, that is *0x0000_0000*. By default, the user flash is aliased to the very first address of the memory map that is 0. The image below shows this type of configuration.
 
-![image](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/flash.png)
+<p align="center">
+	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/flash.png" width="600"/>
+</p>
 
 In this project, the STM native bootloader will not be used. We will create our own Bootloader that will be stored in the first sector of the flash memory (Sector 0 - 32KB). **Sector-1** to **Sector-11** will be used for storing user application. For details, refer to the [reference manual](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/Reference_manual.pdf).  
 
@@ -42,7 +44,9 @@ In this project, the STM native bootloader will not be used. We will create our 
 
 Whenever we reset the microcontroller the Bootloader code which is stored in the sector 0 will run first. Then the Bootloader code will check the status of the user button. If the user button is pressed during the reset of the microcontroller, then bootloader will execute the function **bootloader_uart_read_data()**. If the user button is not pressed during resetting of the board, then the other path will be executed, that is the bootloader jumps to the user application through function **bootloader_jump_to_user_app()**. The flow chart below shows this behavior.
 
-![image](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/flowchart.png)
+<p align="center">
+	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/flowchart.png" width="700"/>
+</p>
 
 The [main.c](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/01_Bootloader/Core/Src/main.c) file demonstrates the behavior of the Bootloader through the code snippet:
 
@@ -74,3 +78,11 @@ MEMORY
 3. In **02_User_app_STM32F7xxx** go to: \
 [startup_stm32f767zitx.s](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/01_Bootloader/Core/Startup/startup_stm32f767zitx.s) > **SystemInit** > **system_stm32f7xx.c** > **SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET** and relocate the vector table through the Vector Table offset Register (VTOR) editing the line *#define VECT_TAB_OFFSET  0x8000*.
 4. After that, save the bootloader application normally at address *0x0800_0000*.
+
+## Supported Bootloader Commands and Host–Bootloader Communication 
+
+The image below demonstrates the communication process between the Host and the MCU Bootloader. First, the Host sends a command to the Bootloader which in turn will respond in two steps. The Bootloader will confirm or not the receipt of the package by sending an ACK or NACK along with the size of the response to the Host. This check is done from the **Cyclic Redundancy Check** of the board (CRC). Finally, the MCU sends the message with the established size sent previously. The list of commands implemented in this project can be found in this [document](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/bootloader_commands.pdf).
+
+<p align="center">
+	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/communication.png" alt="drawing" width="500"/>
+</p>
