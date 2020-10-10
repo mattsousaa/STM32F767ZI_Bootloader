@@ -84,5 +84,5 @@ MEMORY
 The image below demonstrates the communication process between the Host and the MCU Bootloader. First, the Host sends a command to the Bootloader which in turn will respond in two steps. The Bootloader will confirm or not the receipt of the package by sending an ACK or NACK along with the size of the response to the Host. This check is done from the **Cyclic Redundancy Check** of the board (CRC). Finally, the MCU sends the message with the established size sent previously. The list of commands implemented in this project can be found in this [document](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/bootloader_commands.pdf).
 
 <p align="center">
-	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/communication.png" alt="drawing" width="500"/>
+	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/host.png" alt="drawing" width="500"/>
 </p>
