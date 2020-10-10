@@ -74,3 +74,9 @@ MEMORY
 3. In **02_User_app_STM32F7xxx** go to: \
 [startup_stm32f767zitx.s](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/01_Bootloader/Core/Startup/startup_stm32f767zitx.s) > **SystemInit** > **system_stm32f7xx.c** > **SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET** and relocate the vector table through the Vector Table offset Register (VTOR) editing the line *#define VECT_TAB_OFFSET  0x8000*.
 4. After that, save the bootloader application normally at address *0x0800_0000*.
+
+## Supported Bootloader Commands and Host–Bootloader Communication 
+
+The image below demonstrates the communication process between the Host and the MCU Bootloader. First, the Host sends a command to the Bootloader which in turn will respond in two steps. The Bootloader will confirm or not the receipt of the package by sending an ACK or NACK along with the size of the response to the Host. This check is done from the **Cyclic Redundancy Check** of the board (CRC). The list of commands implemented in this project can be found in this [document](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/bootloader_commands.pdf).
+
+![image](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/communication.png)
