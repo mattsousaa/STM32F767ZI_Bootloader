@@ -86,3 +86,10 @@ The image below demonstrates the communication process between the Host and the 
 <p align="center">
 	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/host.png" alt="drawing" width="500"/>
 </p>
+
+## Boot-loader Command Handling Flow-Chart
+
+<p align="center">
+	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/code_flow.png" width="600"/>
+</p>
+
