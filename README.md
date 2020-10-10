@@ -43,7 +43,7 @@ In this project, the STM native bootloader will not be used. We will create our 
 Whenever we reset the microcontroller the Bootloader code which is stored in the sector 0 will run first. Then the Bootloader code will check the status of the user button. If the user button is pressed during the reset of the microcontroller, then bootloader will execute the function **bootloader_uart_read_data()**. If the user button is not pressed during resetting of the board, then the other path will be executed, that is the bootloader jumps to the user application through function **bootloader_jump_to_user_app()**. The flow chart below shows this behavior.
 
 <p align="center">
-	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/flowchart.png" width="600"/>
+	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/flowchart.png" width="700"/>
 </p>
 
 The [main.c](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/01_Bootloader/Core/Src/main.c) file demonstrates the behavior of the Bootloader through the code snippet:
