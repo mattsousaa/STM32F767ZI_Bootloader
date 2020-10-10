@@ -77,4 +77,4 @@ MEMORY
 
 | Host Sends | 	  Command Code | Bootloader replies | Notes |
 |------------|:---------------:|:------------------:|:---------------|
-| BL_GET_VER | 0x51 | Bootloader version number(1byte) | This command is used to read the bootloader version from the MCU |
+| BL_GET_VER | 0x51 | Bootloader version number(1byte) | This command is used to \ read the bootloader version from the MCU |
