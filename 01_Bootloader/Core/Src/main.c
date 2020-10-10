@@ -21,11 +21,10 @@
 
 CRC_HandleTypeDef hcrc;
 ETH_HandleTypeDef heth;
+PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 UART_HandleTypeDef huart3;
 UART_HandleTypeDef huart6;
-
-PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 #define D_UART   &huart6
 #define C_UART   &huart3
@@ -41,6 +40,9 @@ static void MX_USART6_UART_Init(void);
 static void printmsg(char *format,...);
 
 char somedata[] = "Hello from Bootloader\r\n";
+
+#define BL_RX_LEN  200
+uint8_t bl_rx_buffer[BL_RX_LEN];
 
 int main(void){
 
@@ -76,6 +78,95 @@ int main(void){
 		//jump to user application
 		bootloader_jump_to_user_app();
 	}
+}
+
+void bootloader_uart_read_data(void){
+
+	uint8_t rcv_len = 0;
+
+	while(1){
+		memset(bl_rx_buffer, 0, 200);
+		//here we will read and decode the commands coming from host
+		//first read only one byte from the host, which is the "length" field of the command packet
+		HAL_UART_Receive(C_UART, bl_rx_buffer, 1, HAL_MAX_DELAY);
+		rcv_len = bl_rx_buffer[0];
+		HAL_UART_Receive(C_UART, &bl_rx_buffer[1], rcv_len, HAL_MAX_DELAY);
+
+		switch(bl_rx_buffer[1]){
+			case BL_GET_VER:
+				bootloader_handle_getver_cmd(bl_rx_buffer);
+				break;
+			case BL_GET_HELP:
+				//bootloader_handle_gethelp_cmd(bl_rx_buffer);
+				break;
+			case BL_GET_CID:
+				//bootloader_handle_getcid_cmd(bl_rx_buffer);
+				break;
+			case BL_GET_RDP_STATUS:
+				//bootloader_handle_getrdp_cmd(bl_rx_buffer);
+				break;
+			case BL_GO_TO_ADDR:
+				//bootloader_handle_go_cmd(bl_rx_buffer);
+				break;
+			case BL_FLASH_ERASE:
+				//bootloader_handle_flash_erase_cmd(bl_rx_buffer);
+				break;
+			case BL_MEM_WRITE:
+				//bootloader_handle_mem_write_cmd(bl_rx_buffer);
+				break;
+			case BL_EN_RW_PROTECT:
+				//bootloader_handle_en_rw_protect(bl_rx_buffer);
+				break;
+			case BL_MEM_READ:
+				//bootloader_handle_mem_read(bl_rx_buffer);
+				break;
+			case BL_READ_SECTOR_P_STATUS:
+				//bootloader_handle_read_sector_protection_status(bl_rx_buffer);
+				break;
+			case BL_OTP_READ:
+				//bootloader_handle_read_otp(bl_rx_buffer);
+				break;
+			case BL_DIS_R_W_PROTECT:
+				//bootloader_handle_dis_rw_protect(bl_rx_buffer);
+				break;
+			default:
+				printmsg("BL_DEBUG_MSG:Invalid command code received from host \n");
+				break;
+		}
+	}
+}
+
+/* Code to jump to user application
+ * Here we are assuming FLASH_SECTOR2_BASE_ADDRESS
+ * is where the user application is stored
+ */
+void bootloader_jump_to_user_app(void){
+
+	//just a function pointer to hold the address of the reset handler of the user app.
+	void (*app_reset_handler)(void);
+
+	printmsg("BL_DEBUG_MSG:bootloader_jump_to_user_app\n");
+
+	// 1. configure the MSP by reading the value from the base address of the sector 1
+	uint32_t msp_value = *(volatile uint32_t *)FLASH_SECTOR1_BASE_ADDRESS;
+	printmsg("BL_DEBUG_MSG:MSP value : %#x\n", msp_value);
+
+	//This function comes from CMSIS.
+	__set_MSP(msp_value);
+
+	//SCB->VTOR = FLASH_SECTOR1_BASE_ADDRESS;
+
+	/* 2. Now fetch the reset handler address of the user application
+	 * from the location FLASH_SECTOR2_BASE_ADDRESS+4
+	 */
+	uint32_t resethandler_address = *(volatile uint32_t*)(FLASH_SECTOR1_BASE_ADDRESS + 4);
+
+	app_reset_handler = (void*) resethandler_address;
+
+	printmsg("BL_DEBUG_MSG: app reset handler addr : %#x\n", app_reset_handler);
+
+	//3. jump to reset handler of the user application
+	app_reset_handler();
 }
 
 /**
@@ -319,40 +410,24 @@ void printmsg(char *format, ...){
 
 }
 
-/* Code to jump to user application
- * Here we are assuming FLASH_SECTOR2_BASE_ADDRESS
- * is where the user application is stored
- */
-void bootloader_jump_to_user_app(void){
+/**************Implementation of Boot-loader Command Handle functions *********/
 
-	//just a function pointer to hold the address of the reset handler of the user app.
-	void (*app_reset_handler)(void);
+/*Helper function to handle BL_GET_VER command */
+void bootloader_handle_getver_cmd(uint8_t *bl_rx_buffer){
 
-	printmsg("BL_DEBUG_MSG:bootloader_jump_to_user_app\n");
-
-	// 1. configure the MSP by reading the value from the base address of the sector 2
-	uint32_t msp_value = *(volatile uint32_t *)FLASH_SECTOR2_BASE_ADDRESS;
-	printmsg("BL_DEBUG_MSG:MSP value : %#x\n", msp_value);
-
-	//This function comes from CMSIS.
-	__set_MSP(msp_value);
-
-	//SCB->VTOR = FLASH_SECTOR1_BASE_ADDRESS;
-
-	/* 2. Now fetch the reset handler address of the user application
-	 * from the location FLASH_SECTOR2_BASE_ADDRESS+4
-	 */
-	uint32_t resethandler_address = *(volatile uint32_t*)(FLASH_SECTOR2_BASE_ADDRESS + 4);
-
-	app_reset_handler = (void*) resethandler_address;
-
-	printmsg("BL_DEBUG_MSG: app reset handler addr : %#x\n", app_reset_handler);
-
-	//3. jump to reset handler of the user application
-	app_reset_handler();
 }
 
-void bootloader_uart_read_data(void){
+/*This function sends ACK if CRC matches along with "len to follow"*/
+void bootloader_send_ack(uint8_t command_code, uint8_t follow_len){
+	 //here we send 2 bytes... first byte is ack and the second byte is len value
+	uint8_t ack_buf[2];
+	ack_buf[0] = BL_ACK;
+	ack_buf[1] = follow_len;
+	HAL_UART_Transmit(C_UART, ack_buf, 2, HAL_MAX_DELAY);
+}
 
-
+/*This function sends NACK */
+void bootloader_send_nack(void){
+	uint8_t nack = BL_NACK;
+	HAL_UART_Transmit(C_UART, &nack, 1, HAL_MAX_DELAY);
 }
