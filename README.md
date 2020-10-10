@@ -89,7 +89,7 @@ The image below demonstrates the communication process between the Host and the 
 
 ## Bootloader Command Handling Flow-Chart
 
-If the user button is pressed during the board reset, then we will enter the Bootloader to receive messages from the Host. As long as we don't receive any bytes in length, we are in a loop. Otherwise, if we receive a byte in length, then we read that byte and decode the received command. Depending on the type of command, we will handle it using a specific function. After the command is identified, a check is performed on the CRC sent by the Host. If the CRC sent is not the same as the first bytes of information received, then we return to the loop function returning a "NACK". Otherwise, an ACK is sent and a response is obtained. Finally, the MCU sends the message requested by the Host.
+If the user button is pressed during the board reset, then we will enter the Bootloader to receive messages from the Host. As long as we don't receive any bytes in length, we are in a loop. Otherwise, if we receive a byte in length, then we read that byte and decode the received command. Depending on the type of command, we will handle it using a specific function. After the command is identified, a check is performed on the [CRC](https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/CRC_peripheral.pdf) sent by the Host. If the CRC sent is not the same as the first bytes of information received, then we return to the loop function returning a "NACK". Otherwise, an ACK is sent and a response is obtained. Finally, the MCU sends the message requested by the Host.
 
 <p align="center">
 	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/code_flow.png" width="600"/>
