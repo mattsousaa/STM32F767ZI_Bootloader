@@ -95,3 +95,20 @@ If the user button is pressed during the board reset, then we will enter the Boo
 	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/code_flow.png" width="600"/>
 </p>
 
+## HOST Application
+
+A Python application was used to communicate between HOST and Bootloader. Choosing such a programming language allows us to run it on any operating system. For this, we need to install the Python Pyserial module on the HOST as well as [Python](https://www.python.org/downloads/). Install Python to your computer first. Below are the commands for installing the serial module.
+* For Windows
+```
+$ python -m pip install pyserial
+```
+* For Ubuntu
+```
+$ sudo apt-get install python3-serial
+```
+* For MAC
+```
+$ curl https://bootstrap.pypa.io/get-pip.py > get-pip.py  
+$ sudo python get-pip.py
+$ sudo pip install pyserial
+```
