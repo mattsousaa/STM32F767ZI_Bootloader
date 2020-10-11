@@ -430,10 +430,10 @@ void bootloader_handle_getver_cmd(uint8_t *bl_rx_buffer){
 
 		printmsg("BL_DEBUG_MSG:checksum success !!\n");
 		// checksum is correct..
-		bootloader_send_ack(bl_rx_buffer[0], 1);
-		bl_version = get_bootloader_version();
+		bootloader_send_ack(bl_rx_buffer[0], 1); // send 'ACK'
+		bl_version = get_bootloader_version();	 // Obtain reply
 		printmsg("BL_DEBUG_MSG:BL_VER : %d %#x\n", bl_version, bl_version);
-		bootloader_uart_write_data(&bl_version, 1);
+		bootloader_uart_write_data(&bl_version, 1); // Send reply
 
 	} else{
 		printmsg("BL_DEBUG_MSG:checksum fail !!\n");
@@ -444,7 +444,7 @@ void bootloader_handle_getver_cmd(uint8_t *bl_rx_buffer){
 
 /*This function sends ACK if CRC matches along with "len to follow"*/
 void bootloader_send_ack(uint8_t command_code, uint8_t follow_len){
-	 //here we send 2 bytes... first byte is ack and the second byte is len value
+	//here we send 2 bytes... first byte is ack and the second byte is len value
 	uint8_t ack_buf[2];
 	ack_buf[0] = BL_ACK;
 	ack_buf[1] = follow_len;
