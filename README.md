@@ -131,8 +131,8 @@ The standard communication channel between the board and the computer happens th
 |-----------|:---------------:|
 | <span style="color:green">*Green (TX)*</span>  |  *PC7 (RX)*    |
 | <span style="color:white">*White (RX)*</span>  |  *PC6 (TX)*   |  
-| <span style="color:red">*RED (5V)*</span>  | *-*      |  
-| <span style="color:black">*BLACK (GND)*</span>  | *-* |
+| <span style="color:red">*Red (5V)*</span>  | *-*      |  
+| <span style="color:black">*Black (GND)*</span>  | *-* |
 
 ## References
 ### Websites
