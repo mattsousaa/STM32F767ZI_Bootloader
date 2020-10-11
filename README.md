@@ -126,5 +126,6 @@ The above commands can return different data or values depending on the user's n
 
 ## References
 ### Websites
+* [Nucleo board](https://pt.aliexpress.com/item/32710471095.html)
 * [Documentations](https://www.st.com/en/microcontrollers-microprocessors/stm32f767zi.html)
 * [Udemy course](https://www.udemy.com/course/stm32f4-arm-cortex-mx-custom-bootloader-development/)
