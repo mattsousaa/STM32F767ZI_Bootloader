@@ -1,20 +1,10 @@
-14:46:57 **** Incremental Build of configuration Debug for project 01_Bootloader ****
+22:58:01 **** Incremental Build of configuration Debug for project 01_Bootloader ****
 make -j4 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F767xx -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "01_Bootloader.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\mateu\Documents\Bootloader_ST\01_Bootloader\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="01_Bootloader.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 01_Bootloader.elf
- 
-arm-none-eabi-objdump -h -S  01_Bootloader.elf  > "01_Bootloader.list"
-arm-none-eabi-objcopy  -O binary  01_Bootloader.elf  "01_Bootloader.bin"
 arm-none-eabi-size   01_Bootloader.elf 
    text	   data	    bss	    dec	    hex	filename
-  21916	    120	   3176	  25212	   627c	01_Bootloader.elf
+  21972	    120	   3176	  25268	   62b4	01_Bootloader.elf
 Finished building: default.size.stdout
  
-Finished building: 01_Bootloader.bin
- 
-Finished building: 01_Bootloader.list
- 
 
-14:46:58 Build Finished. 0 errors, 0 warnings. (took 1s.334ms)
+22:58:01 Build Finished. 0 errors, 0 warnings. (took 296ms)
 
