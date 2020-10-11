@@ -114,9 +114,9 @@ $ sudo pip install pyserial
 ```
 The image below shows the Python program running on HOST. As a test, a command was sent that asks for the version of the Bootloader that is being executed on the MCU. Below the **BL_GET_VER** command are the contents of the command package.
 
-* *0x05 - length sent from the host.*
-* *0x51 - Command code for BL_GET_VER.*
-* *0xE7, 0xE9, 0xAB, 0x7C - 32 bit CRC from the host.*
+* *0x05 - **length sent from the host**.*
+* *0x51 - **Command code for BL_GET_VER**.*
+* *0xE7, 0xE9, 0xAB, 0x7C - **Host 32 bit CRC**.*
 
 <p align="center">
 	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/boot_img.PNG" width="550"/>
