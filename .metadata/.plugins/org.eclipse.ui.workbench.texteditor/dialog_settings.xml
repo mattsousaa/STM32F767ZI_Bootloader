@@ -8,6 +8,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="//Total length of the command packet"/>
 			<item value="Error_Handler();"/>
 			<item value="systeminit"/>
 			<item value="reset"/>

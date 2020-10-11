@@ -89,8 +89,8 @@ void bootloader_uart_read_data(void);
 void bootloader_jump_to_user_app(void);
 
 void bootloader_handle_getver_cmd(uint8_t *bl_rx_buffer);
-//void bootloader_handle_gethelp_cmd(uint8_t *pBuffer);
-//void bootloader_handle_getcid_cmd(uint8_t *pBuffer);
+void bootloader_handle_gethelp_cmd(uint8_t *pBuffer);
+void bootloader_handle_getcid_cmd(uint8_t *pBuffer);
 //void bootloader_handle_getrdp_cmd(uint8_t *pBuffer);
 //void bootloader_handle_go_cmd(uint8_t *pBuffer);
 //void bootloader_handle_flash_erase_cmd(uint8_t *pBuffer);
@@ -106,6 +106,7 @@ void bootloader_send_nack(void);
 
 uint8_t bootloader_verify_crc(uint8_t *pData, uint32_t len, uint32_t crc_host);
 uint8_t get_bootloader_version(void);
+uint16_t get_mcu_chip_id(void);
 void bootloader_uart_write_data(uint8_t *pBuffer, uint32_t len);
 
 //version 1.0

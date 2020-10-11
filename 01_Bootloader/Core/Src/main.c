@@ -26,6 +26,16 @@ PCD_HandleTypeDef hpcd_USB_OTG_FS;
 UART_HandleTypeDef huart3;
 UART_HandleTypeDef huart6;
 
+uint8_t supported_commands[] = {
+								BL_GET_VER ,
+                                BL_GET_HELP,
+                                BL_GET_CID,
+                                BL_GET_RDP_STATUS,
+                                BL_GO_TO_ADDR,
+                                BL_FLASH_ERASE,
+                                BL_MEM_WRITE,
+                                BL_READ_SECTOR_P_STATUS} ;
+
 #define D_UART   &huart6
 #define C_UART   &huart3
 
@@ -97,10 +107,10 @@ void bootloader_uart_read_data(void){
 				bootloader_handle_getver_cmd(bl_rx_buffer);
 				break;
 			case BL_GET_HELP:
-				//bootloader_handle_gethelp_cmd(bl_rx_buffer);
+				bootloader_handle_gethelp_cmd(bl_rx_buffer);
 				break;
 			case BL_GET_CID:
-				//bootloader_handle_getcid_cmd(bl_rx_buffer);
+				bootloader_handle_getcid_cmd(bl_rx_buffer);
 				break;
 			case BL_GET_RDP_STATUS:
 				//bootloader_handle_getrdp_cmd(bl_rx_buffer);
@@ -487,4 +497,66 @@ void bootloader_uart_write_data(uint8_t *pBuffer, uint32_t len){
 //Just returns the macro value
 uint8_t get_bootloader_version(void){
   return (uint8_t)BL_VERSION;
+}
+
+//Read the chip identifier or device Identifier
+uint16_t get_mcu_chip_id(void){
+/*
+	The STM32F76xxx and STM32F77xxx MCUs integrate an MCU ID code. This ID identifies the ST MCU part-number and the die
+	revision. It is part of the DBG_MCU component and is mapped on the external PPB bus (see Section 44.16 on page 1925).
+	This code is accessible using the JTAG debug port (4 to 5 pins) or the SW debug port (two pins) or by the user
+	software. It is even accessible while the MCU is under system reset. */
+
+	uint16_t cid;
+	cid = (uint16_t)(DBGMCU->IDCODE) & 0x0FFF; // convert to a 16-bit unsigned int
+	return  cid;
+
+}
+
+/* Helper function to handle BL_GET_HELP command
+ * Bootloader sends out All supported Command codes
+ */
+void bootloader_handle_gethelp_cmd(uint8_t *pBuffer){
+	//Total length of the command packet
+	uint32_t command_packet_len = bl_rx_buffer[0] + 1;
+
+	//extract the CRC32 sent by the Host
+	uint32_t host_crc = *((uint32_t *)(bl_rx_buffer + command_packet_len - 4));
+
+	if(!bootloader_verify_crc(&bl_rx_buffer[0], command_packet_len - 4, host_crc)){
+
+		printmsg("BL_DEBUG_MSG:checksum success !!\n");
+		bootloader_send_ack(pBuffer[0], sizeof(supported_commands)); // send 'ACK'
+		bootloader_uart_write_data(supported_commands, sizeof(supported_commands)); // Send reply
+
+	} else{
+		printmsg("BL_DEBUG_MSG:checksum fail !!\n");
+		//checksum is wrong send nack
+		bootloader_send_nack();
+	}
+}
+
+/*Helper function to handle BL_GET_CID command */
+void bootloader_handle_getcid_cmd(uint8_t *pBuffer){
+
+	uint16_t bl_cid_num = 0;
+	printmsg("BL_DEBUG_MSG:bootloader_handle_getcid_cmd\n");
+
+	//Total length of the command packet
+	uint32_t command_packet_len = bl_rx_buffer[0]+1;
+
+	//extract the CRC32 sent by the Host
+	uint32_t host_crc = *((uint32_t*) (bl_rx_buffer + command_packet_len - 4));
+
+	if(!bootloader_verify_crc(&bl_rx_buffer[0], command_packet_len - 4, host_crc)){
+		printmsg("BL_DEBUG_MSG:checksum success !!\n");
+		bootloader_send_ack(pBuffer[0], 2);	// send 'ACK'
+		bl_cid_num = get_mcu_chip_id(); // Obtain reply
+		printmsg("BL_DEBUG_MSG:MCU id : %d %#x !!\n", bl_cid_num, bl_cid_num);
+		bootloader_uart_write_data((uint8_t*) &bl_cid_num, 2); // Send reply
+
+	} else{
+		printmsg("BL_DEBUG_MSG:checksum fail !!\n");
+		bootloader_send_nack();
+	}
 }
