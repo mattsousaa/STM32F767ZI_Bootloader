@@ -122,4 +122,4 @@ The image below shows the Python program running on HOST. As a test, a command w
 	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/boot_img.PNG" width="550"/>
 </p>
  
-The above commands can return different data or values ​​depending on the user's needs and can be modified. Feel free to modify them and continue the project for this specific type of board.
+The above commands can return different data or values depending on the user's needs and can be modified. Feel free to modify them and continue the project for this specific type of board.
