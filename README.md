@@ -113,6 +113,6 @@ $ sudo python get-pip.py
 $ sudo pip install pyserial
 ```
 <p align="center">
-	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/boot_img.PNG" width="600"/>
+	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/boot_img.PNG" width="500"/>
 </p>
 
