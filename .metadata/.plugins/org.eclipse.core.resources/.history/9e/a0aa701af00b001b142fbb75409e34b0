@@ -509,7 +509,7 @@ uint16_t get_mcu_chip_id(void){
 
 	uint16_t cid;
 	cid = (uint16_t)(DBGMCU->IDCODE) & 0x0FFF; // convert to a 16-bit unsigned int
-	return cid;
+	return  cid;
 
 }
 
