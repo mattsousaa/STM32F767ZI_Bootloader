@@ -112,3 +112,7 @@ $ curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
 $ sudo python get-pip.py
 $ sudo pip install pyserial
 ```
+<p align="center">
+	<img src="https://github.com/mattsousaa/STM32F7xxx_Bootloader/blob/master/00_Documents/imagens/boot_img.PNG" width="600"/>
+</p>
+
