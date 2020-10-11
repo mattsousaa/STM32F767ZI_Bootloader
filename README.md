@@ -126,13 +126,13 @@ The above commands can return different data or values depending on the user's n
 
 ## Debug Options
 The standard communication channel between the board and the computer happens through pins **PD8 (TX)** and **PD9 (RX)** of **USART3**. If the user wants to chat with the Bootloader, a USB to UART converter hardware is required in between. For this project, it is not mandatory to use this converter, however, some pins have been defined for communication between the host and the MCU through pins **PC6 (TX)** and **PC7 (RX)** of **USART6**. In my case, I used a [USB cable for TTL UART RS232 PL2303HX](https://pt.aliexpress.com/item/33040891991.html?src=google&albch=shopping&acnt=494-037-6276&isdl=y&slnk=&plac=&mtctp=&albbt=Gploogle_7_shopping&aff_atform=google&aff_short_key=UneMJZVf&&albagn=888888&albcp=7303158455&albag=86143156931&trgt=883147840299&crea=pt33040891991&netw=u&device=c&albpg=883147840299&albpd=pt33040891991&gclid=Cj0KCQjw2or8BRCNARIsAC_ppyY1HrcwA-9puiwe-Diz-Hy1tD82ZOqjLuKU5cW_684sVHdkj2IWcj8aAvB8EALw_wcB&gclsrc=aw.ds). This type of cable can be found easily on any website. Its driver for windows can be downloaded [here](http://www.mediafire.com/file/982x6iyk89v95dp/Prolific_PL2303_driver_v3.3.2.102_%25282008-24-09%2529_Win8_x64_x86.7z/file). Connect the pins of the serial converter to the MCU as follows:
-Em sua barba moravam três <span style="color:red">cardeais</span>.
+
 | USB cable pins   |      MCU pins       |
 |-----------|:---------------:|
-| <span style="color:green">*Green (TX)*</span>  |  TIA (write)    |
-| <span style="color:white">*White (RX)*</span>  |    TIA (read)   |  
-| <span style="color:red">*RED (5V)*</span>  | RIOT (RAM)      |  
-| <span style="color:black">*BLACK (GND)*</span>  | RIOT (I/O,Timer)|
+| <span style="color:green">*Green (TX)*</span>  |  *PC7 (RX)*    |
+| <span style="color:white">*White (RX)*</span>  |  *PC6 (TX)*   |  
+| <span style="color:red">*RED (5V)*</span>  | *-*      |  
+| <span style="color:black">*BLACK (GND)*</span>  | *-* |
 
 ## References
 ### Websites
