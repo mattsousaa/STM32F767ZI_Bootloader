@@ -119,7 +119,7 @@ void bootloader_uart_read_data(void){
 				bootloader_handle_go_cmd(bl_rx_buffer);
 				break;
 			case BL_FLASH_ERASE:
-				//bootloader_handle_flash_erase_cmd(bl_rx_buffer);
+				bootloader_handle_flash_erase_cmd(bl_rx_buffer);
 				break;
 			case BL_MEM_WRITE:
 				//bootloader_handle_mem_write_cmd(bl_rx_buffer);
@@ -583,6 +583,37 @@ void bootloader_handle_go_cmd(uint8_t *pBuffer){
 	}
 }
 
+/*Helper function to handle BL_FLASH_ERASE command */
+void bootloader_handle_flash_erase_cmd(uint8_t *pBuffer){
+
+	uint8_t erase_status = 0x00;
+	printmsg("BL_DEBUG_MSG:bootloader_handle_flash_erase_cmd\n");
+
+	//Total length of the command packet
+	uint32_t command_packet_len = bl_rx_buffer[0]+1;
+
+	//extract the CRC32 sent by the Host
+	uint32_t host_crc = *((uint32_t*)(bl_rx_buffer + command_packet_len - 4));
+
+	if(!bootloader_verify_crc(&bl_rx_buffer[0], command_packet_len - 4, host_crc)){
+		printmsg("BL_DEBUG_MSG:checksum success !!\n");
+		bootloader_send_ack(pBuffer[0], 1);
+		printmsg("BL_DEBUG_MSG:initial_sector : %d  no_ofsectors: %d\n", pBuffer[2], pBuffer[3]);
+
+		HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, 1); // Turn on the LED RED
+		erase_status = execute_flash_erase(pBuffer[2], pBuffer[3]);
+		HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, 0); // Turn off the LED RED
+
+		printmsg("BL_DEBUG_MSG: flash erase status: %#x\n", erase_status);
+
+		bootloader_uart_write_data(&erase_status, 1);
+
+	} else{
+		printmsg("BL_DEBUG_MSG:checksum fail !!\n");
+		bootloader_send_nack();
+	}
+}
+
 /*This function sends ACK if CRC matches along with "len to follow"*/
 void bootloader_send_ack(uint8_t command_code, uint8_t follow_len){
 	//here we send 2 bytes... first byte is ack and the second byte is len value
@@ -689,4 +720,47 @@ uint8_t verify_address(uint32_t go_address){
 		return ADDR_VALID;
 	} else
 		return ADDR_INVALID;
+}
+
+uint8_t execute_flash_erase(uint8_t sector_number, uint8_t number_of_sector){
+
+	// we have totally 12 sectors in STM32F767ZI mcu .. sector[0 to 11]
+	// number_of_sector has to be in the range of 0 to 11
+	// if sector_number = 0xff , that means mass erase !
+	// Code needs to modified if your MCU supports more flash sectors
+	FLASH_EraseInitTypeDef flashErase_handle;
+	uint32_t sectorError;
+	HAL_StatusTypeDef status;
+
+	if (number_of_sector > 12)
+		return INVALID_SECTOR;
+
+	if ((sector_number == 0xff) || (sector_number <= 11)){
+		if(sector_number == (uint8_t) 0xff){
+			HAL_Delay(1000);
+			HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, 0); // turn off the LED RED
+			flashErase_handle.TypeErase = FLASH_TYPEERASE_MASSERASE;
+			// From here you will lose the connection to the bootloader
+		} else{
+			/*Here we are just calculating how many sectors needs to erased */
+			uint8_t remanining_sector = 12 - sector_number;
+			if(number_of_sector > remanining_sector){
+				number_of_sector = remanining_sector;
+			}
+			flashErase_handle.TypeErase = FLASH_TYPEERASE_SECTORS;
+			flashErase_handle.Sector = sector_number; // this is the initial sector
+			flashErase_handle.NbSectors = number_of_sector;
+		}
+		flashErase_handle.Banks = FLASH_BANK_1;
+
+		/*Get access to touch the flash registers */
+		HAL_FLASH_Unlock();
+		flashErase_handle.VoltageRange = FLASH_VOLTAGE_RANGE_3; // our mcu will work on this voltage range
+		status = (uint8_t) HAL_FLASHEx_Erase(&flashErase_handle, &sectorError);
+		HAL_FLASH_Lock();
+
+		return status;
+	}
+
+	return INVALID_SECTOR;
 }

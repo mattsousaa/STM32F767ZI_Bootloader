@@ -1,14 +1,21 @@
-00:44:52 **** Incremental Build of configuration Debug for project 01_Bootloader ****
+14:41:33 **** Incremental Build of configuration Debug for project 01_Bootloader ****
 make -j4 all 
 arm-none-eabi-size   01_Bootloader.elf 
    text	   data	    bss	    dec	    hex	filename
-  23136	    128	   3176	  26440	   6748	01_Bootloader.elf
+  24544	    128	   3208	  27880	   6ce8	01_Bootloader.elf
 Finished building: default.size.stdout
  
-00:44:57 **** Incremental Build of configuration Debug for project 01_Bootloader ****
+14:41:36 **** Incremental Build of configuration Debug for project 01_Bootloader ****
 make -j4 all 
 arm-none-eabi-size   01_Bootloader.elf 
    text	   data	    bss	    dec	    hex	filename
-  23136	    128	   3176	  26440	   6748	01_Bootloader.elf
+  24544	    128	   3208	  27880	   6ce8	01_Bootloader.elf
+Finished building: default.size.stdout
+ 
+14:41:45 **** Incremental Build of configuration Debug for project 02_User_app_STM32F7xxx ****
+make -j4 all 
+arm-none-eabi-size   02_User_app_STM32F7xxx.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16880	     52	   2796	  19728	   4d10	02_User_app_STM32F7xxx.elf
 Finished building: default.size.stdout
  
