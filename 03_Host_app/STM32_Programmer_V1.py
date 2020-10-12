@@ -406,10 +406,10 @@ def decode_menu_command_code(command):
         print("\n   Command == > BL_FLASH_ERASE")
         data_buf[0] = COMMAND_BL_FLASH_ERASE_LEN-1 
         data_buf[1] = COMMAND_BL_FLASH_ERASE 
-        sector_num = input("\n   Enter sector number(0-7 or 0xFF) here :")
+        sector_num = input("\n   Enter sector number(0-11 or 0xFF) here :")
         sector_num = int(sector_num, 16)
         if(sector_num != 0xff):
-            nsec=int(input("\n   Enter number of sectors to erase(max 8) here :"))
+            nsec=int(input("\n   Enter number of sectors to erase(max 12) here :"))
         
         data_buf[2]= sector_num 
         data_buf[3]= nsec 
