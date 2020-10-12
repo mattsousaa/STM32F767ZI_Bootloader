@@ -136,11 +136,11 @@ The standard communication channel between the board and the computer happens th
 
 ## Notes about T bit of the EPSR (Execution Program Status Register)
 
-* Various ARM processor support ARM-Thumb interworking, that means the ability to switch between ARM and Thmb state.
+* Various ARM processor support ARM-Thumb interworking, that means the ability to switch between ARM and Thumb state.
 * The processor must be in ARM state to execute instructions which are from ARM ISA and the processor must be in Thumb state to execute instructions of Thumb ISA.
-* If 'T' bit of the EPSR is reser(0), processor thinks that next instruction which is about to execute is from ARM ISA.
+* If 'T' bit of the EPSR is reset(0), processor thinks that next instruction which is about to execute is from ARM ISA.
 * The Cortex Mx processor does not support the "ARM" state. Hence, the value of 'T' bit must always be 1. Failing to maintain this is illegal and this will result in the "Usage fault" exception.
-* The LSB (bit 0) of the program counter (PC) is linked to this 'T' bit. When you load a value or an address in to PC thw Bit[0] of the value is loaded into the T-bit.
+* The LSB (bit 0) of the program counter (PC) is linked to this 'T' bit. When you load a value or an address in to PC the Bit[0] of the value is loaded into the T-bit.
 * Hence, any address you place in the PC must have its 0th bit as 1. This is usually taken care by the compiler and programmers need not to worry most of the time.
 * This is the reason why you see all vector addresses are incremented by 1 in the vector table.
 
