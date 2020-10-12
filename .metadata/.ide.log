@@ -3738,3 +3738,7 @@
 2020-10-11 15:34:50,770 [INFO] ApiDb:230 - User favorites MCUs=[]
 2020-10-11 15:34:50,773 [INFO] ApiDb:226 - Save user favorites file C:\Users\mateu/.stm32cubeide/favorites.boards.txt: 0 item(s)
 2020-10-11 15:34:50,773 [INFO] ApiDb:230 - User favorites Boards=[]
+2020-10-11 21:51:08,802 [INFO] Activator:178 - 
+
+
+2020-10-11 21:51:08,815 [INFO] Activator:179 - !SESSION log4j initialized

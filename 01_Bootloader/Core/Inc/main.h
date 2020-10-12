@@ -92,7 +92,7 @@ void bootloader_handle_getver_cmd(uint8_t *bl_rx_buffer);
 void bootloader_handle_gethelp_cmd(uint8_t *pBuffer);
 void bootloader_handle_getcid_cmd(uint8_t *pBuffer);
 void bootloader_handle_getrdp_cmd(uint8_t *pBuffer);
-//void bootloader_handle_go_cmd(uint8_t *pBuffer);
+void bootloader_handle_go_cmd(uint8_t *pBuffer);
 //void bootloader_handle_flash_erase_cmd(uint8_t *pBuffer);
 //void bootloader_handle_mem_write_cmd(uint8_t *pBuffer);
 //void bootloader_handle_en_rw_protect(uint8_t *pBuffer);
@@ -109,6 +109,7 @@ uint8_t get_bootloader_version(void);
 uint16_t get_mcu_chip_id(void);
 void bootloader_uart_write_data(uint8_t *pBuffer, uint32_t len);
 uint8_t get_flash_rdp_level(void);
+uint8_t verify_address(uint32_t go_address);
 
 //version 1.0
 #define BL_VERSION 0x10
@@ -160,6 +161,21 @@ uint8_t get_flash_rdp_level(void);
 /*CRC*/
 #define VERIFY_CRC_FAIL    			1
 #define VERIFY_CRC_SUCCESS 			0
+
+#define ADDR_VALID 0x00
+#define ADDR_INVALID 0x01
+
+#define INVALID_SECTOR 0x04
+
+/*Some Start and End addresses of different memories of STM32F446xx MCU */
+/*Change this according to your MCU */
+#define SRAM1_SIZE            		368*1024     				// STM32F767ZI has 368KB of SRAM1
+#define SRAM1_END             		(SRAM1_BASE + SRAM1_SIZE)
+#define SRAM2_SIZE            		16*1024     				// STM32F767ZI has 16KB of SRAM2
+#define SRAM2_END             		(SRAM2_BASE + SRAM2_SIZE)
+#define FLASH_SIZE             		2048*1024     				// STM32F767ZI has 2048KB of SRAM2
+#define BKPSRAM_SIZE           		4*1024     					// STM32F767ZI has 4KB of SRAM2
+#define BKPSRAM_END            		(BKPSRAM_BASE + BKPSRAM_SIZE)
 
 #endif /* __MAIN_H */
 
