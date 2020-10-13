@@ -652,6 +652,7 @@ void bootloader_handle_mem_write_cmd(uint8_t *pBuffer){
 			// Execute mem write
 			// Each time our bootloader memory write command carries 255 bytes.
 			// user_app.bin has 11.788 bytes - 11788/255 = 47x of execution of this function
+			// In each packet it transfers 255 bytes from the user_app.bin
 			write_status = execute_mem_write(&pBuffer[7], mem_address, payload_len);
 
 			//turn off the led to indicate memory write is over
