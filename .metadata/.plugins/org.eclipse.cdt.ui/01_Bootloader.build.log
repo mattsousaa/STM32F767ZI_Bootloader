@@ -1,10 +1,10 @@
-14:41:36 **** Incremental Build of configuration Debug for project 01_Bootloader ****
+17:32:43 **** Incremental Build of configuration Debug for project 01_Bootloader ****
 make -j4 all 
 arm-none-eabi-size   01_Bootloader.elf 
    text	   data	    bss	    dec	    hex	filename
-  24544	    128	   3208	  27880	   6ce8	01_Bootloader.elf
+  25556	    128	   3208	  28892	   70dc	01_Bootloader.elf
 Finished building: default.size.stdout
  
 
-14:41:37 Build Finished. 0 errors, 0 warnings. (took 390ms)
+17:32:44 Build Finished. 0 errors, 0 warnings. (took 407ms)
 

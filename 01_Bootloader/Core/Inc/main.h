@@ -94,7 +94,7 @@ void bootloader_handle_getcid_cmd(uint8_t *pBuffer);
 void bootloader_handle_getrdp_cmd(uint8_t *pBuffer);
 void bootloader_handle_go_cmd(uint8_t *pBuffer);
 void bootloader_handle_flash_erase_cmd(uint8_t *pBuffer);
-//void bootloader_handle_mem_write_cmd(uint8_t *pBuffer);
+void bootloader_handle_mem_write_cmd(uint8_t *pBuffer);
 //void bootloader_handle_en_rw_protect(uint8_t *pBuffer);
 //void bootloader_handle_mem_read (uint8_t *pBuffer);
 //void bootloader_handle_read_sector_protection_status(uint8_t *pBuffer);
@@ -111,6 +111,7 @@ void bootloader_uart_write_data(uint8_t *pBuffer, uint32_t len);
 uint8_t get_flash_rdp_level(void);
 uint8_t verify_address(uint32_t go_address);
 uint8_t execute_flash_erase(uint8_t sector_number, uint8_t number_of_sector);
+uint8_t execute_mem_write(uint8_t *pBuffer, uint32_t mem_address, uint32_t len);
 
 //version 1.0
 #define BL_VERSION 0x10

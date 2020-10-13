@@ -150,7 +150,7 @@ def Write_to_serial_port(value, *length):
         if(mem_write_active and (not verbose_mode)):
                 print("#",end=' ')
         ser.write(data)
-        time.sleep(0.5)
+        #time.sleep(0.5)
 
 #----------------------------- command processing----------------------------------------
 
