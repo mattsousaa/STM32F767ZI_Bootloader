@@ -124,7 +124,7 @@ The image below shows the Python program running on HOST. As a test, a command w
  
 The above commands can return different data or values depending on the user's needs and can be modified. Feel free to modify them and continue the project for this specific type of board. Let me know if you have any questions or suggestions.
 
-The bootloader developed also has the ability to write binary files through In application programming (IAP). In this case, the user just needs to enter the address of the sector in which he wants to record the binary. The figure below shows the sending of 255 bytes of the application script in python to the Bootloader through the file user_app.bin which has 11.788 bytes.
+The bootloader developed also has the ability to write binary files through In application programming (IAP). In this case, the user just needs to enter the address of the sector in which he wants to record the binary. The figure below shows the sending of 255 bytes of the application script in python to the Bootloader through the file **user_app.bin** which has 11.788 bytes.
 
 <p align="center">
 	<img src="https://github.com/mattsousaa/STM32F767ZI_Bootloader/blob/master/00_Documents/imagens/img_bin.PNG" width="700"/>
