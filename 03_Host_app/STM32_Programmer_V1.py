@@ -235,15 +235,16 @@ protection_mode= [ "Write Protection", "Read/Write Protection","No protection" ]
 def protection_type(status,n):
     if( status & (1 << 15) ):
         #PCROP is active
-        if(status & (1 << n) ):
+        if(status & (1 << n)):
             return protection_mode[1]
         else:
             return protection_mode[2]
     else:
-        if(status & (1 << n)):
+        if(status & (1 << n) ):
             return protection_mode[2]
         else:
             return protection_mode[0]
+        
             
         
         
@@ -253,19 +254,25 @@ def process_COMMAND_BL_READ_SECTOR_STATUS(length):
 
     value = read_serial_port(length)
     s_status = bytearray(value)
+    byt_combined = s_status[0] + s_status[1]
+    #print(s_status)
+    #print(byt_combined)
     #s_status.flash_sector_status = (uint16_t)(status[1] << 8 | status[0] )
-    print("\n   Sector Status : ",s_status[0])
-    print("\n  ====================================")
+    print("\n   Sector Status : ",byt_combined)
+    print("\n  ===================================================")
     print("\n  Sector                               \tProtection") 
-    print("\n  ====================================")
+    print("\n  ===================================================")
     if(s_status[0] & (1 << 15)):
         #PCROP is active
         print("\n  Flash protection mode : Read/Write Protection(PCROP)\n")
     else:
-        print("\n  Flash protection mode :   \tWrite Protection\n")
+        print("\n  Flash protection mode :          \tWrite Protection\n")
 
     for x in range(8):
-        print("\n   Sector{0}                               {1}".format(x,protection_type(s_status[0],x) ) )
+        print("\n   Sector{0}                               {1}".format(x,protection_type(s_status[0],x)))
+
+    for i in range(4): # Other 4 sectors
+        print("\n   Sector{0}                                {1}".format(i+8, protection_type(s_status[1],i)))  
         
 
 
@@ -506,7 +513,7 @@ def decode_menu_command_code(command):
     elif(command == 9):
         print("\n   Command == > BL_EN_R_W_PROTECT")
         total_sector = int(input("\n   How many sectors do you want to protect ?: "))
-        sector_numbers = [0,0,0,0,0,0,0,0]
+        sector_numbers = [0,0,0,0,0,0,0,0,0,0,0,0]
         sector_details=0
         for x in range(total_sector):
             sector_numbers[x]=int(input("\n   Enter sector number[{0}]: ".format(x+1) ))
