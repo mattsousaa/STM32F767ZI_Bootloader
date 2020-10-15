@@ -128,13 +128,13 @@ void bootloader_uart_read_data(void){
 				bootloader_handle_en_rw_protect(bl_rx_buffer);
 				break;
 			case BL_MEM_READ:
-				//bootloader_handle_mem_read(bl_rx_buffer);
+				bootloader_handle_mem_read(bl_rx_buffer);
 				break;
 			case BL_READ_SECTOR_P_STATUS:
 				bootloader_handle_read_sector_protection_status(bl_rx_buffer);
 				break;
 			case BL_OTP_READ:
-				//bootloader_handle_read_otp(bl_rx_buffer);
+				bootloader_handle_read_otp(bl_rx_buffer);
 				break;
 			case BL_DIS_R_W_PROTECT:
 				bootloader_handle_dis_rw_protect(bl_rx_buffer);
@@ -758,6 +758,18 @@ void bootloader_handle_read_sector_protection_status(uint8_t *pBuffer){
 	}
 }
 
+/*Helper function to handle BL_MEM_READ command */
+void bootloader_handle_mem_read(uint8_t *pBuffer){
+
+
+}
+
+/*Helper function to handle BL_OTP_READ command */
+void bootloader_handle_read_otp(uint8_t *pBuffer){
+
+
+}
+
 /*This function sends ACK if CRC matches along with "len to follow"*/
 void bootloader_send_ack(uint8_t command_code, uint8_t follow_len){
 	//here we send 2 bytes... first byte is ack and the second byte is len value
@@ -882,7 +894,7 @@ uint8_t execute_flash_erase(uint8_t sector_number, uint8_t number_of_sector){
 	if ((sector_number == 0xff) || (sector_number <= 11)){
 		if(sector_number == (uint8_t) 0xff){
 			HAL_Delay(1000);
-			HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, 0); // turn off the LED RED
+			HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, 0); // turn off the RED LED
 			flashErase_handle.TypeErase = FLASH_TYPEERASE_MASSERASE;
 			// From here you will lose the connection to the bootloader
 		} else{

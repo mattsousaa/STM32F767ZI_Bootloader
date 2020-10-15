@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="bootloader_handle_read_sector_protection_status"/>
+		<item key="selection" value="HAL_MspInit"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="HAL_MspInit"/>
 			<item value="bootloader_handle_read_sector_protection_status"/>
 			<item value="HAL_FLASHEx_OBGetConfig"/>
 			<item value="status"/>

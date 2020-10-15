@@ -96,9 +96,9 @@ void bootloader_handle_go_cmd(uint8_t *pBuffer);
 void bootloader_handle_flash_erase_cmd(uint8_t *pBuffer);
 void bootloader_handle_mem_write_cmd(uint8_t *pBuffer);
 void bootloader_handle_en_rw_protect(uint8_t *pBuffer);
-//void bootloader_handle_mem_read (uint8_t *pBuffer);
+void bootloader_handle_mem_read(uint8_t *pBuffer);
 void bootloader_handle_read_sector_protection_status(uint8_t *pBuffer);
-//void bootloader_handle_read_otp(uint8_t *pBuffer);
+void bootloader_handle_read_otp(uint8_t *pBuffer);
 void bootloader_handle_dis_rw_protect(uint8_t *pBuffer);
 
 void bootloader_send_ack(uint8_t command_code, uint8_t follow_len);
