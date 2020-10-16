@@ -9,7 +9,9 @@ such as a USB stick or a network port. The bootloader and the user application s
 * 📂 [00_Documents](https://github.com/mattsousaa/STM32F767ZI_Bootloader/tree/master/00_Documents) - Board and design reference manuals.
 * 📂 [01_Bootloader](https://github.com/mattsousaa/STM32F767ZI_Bootloader/tree/master/01_Bootloader) - Individual Bootloader project.
 * 📂 [02_User_app_STM32F7xxx](https://github.com/mattsousaa/STM32F767ZI_Bootloader/tree/master/02_User_app_STM32F7xxx) - User test application.
-* 📂 [03_Host_app](https://github.com/mattsousaa/STM32F767ZI_Bootloader/tree/master/03_Host_app) - Python host application. The binary of the test application must be contained in this same folder if the user wants to record it directly to the flash.
+* 📂 [03_Host_app](https://github.com/mattsousaa/STM32F767ZI_Bootloader/tree/master/03_Host_app) - Python host application. 
+
+The binary of the test application must be contained in this same folder if the user wants to record it directly to the flash. Such an operation is known as **In application programming (IAP)**. 
 
 ## STM32F767ZI Memory Organization
 * Internal Flash memory also called as Embedded Flash memory of 2MB
@@ -130,7 +132,7 @@ The image below shows the Python program running on HOST. As a test, a command w
  
 The above commands can return different data or values depending on the user's needs and can be modified. Feel free to modify them and continue the project for this specific type of board. Let me know if you have any questions or suggestions.
 
-The bootloader developed also has the ability to write binary files through In application programming (IAP). In this case, the user just needs to enter the address of the sector in which he wants to record the binary. The figure below shows the sending of 255 bytes of the application script in python to the Bootloader through the file **user_app.bin** which has 11.788 bytes.
+The bootloader developed also has the ability to write binary files through **In application programming (IAP)**. In this case, the user just needs to enter the address of the sector in which he wants to record the binary. The figure below shows the sending of 255 bytes of the application script in python to the Bootloader through the file **user_app.bin** which has 11.788 bytes.
 
 <p align="center">
 	<img src="https://github.com/mattsousaa/STM32F767ZI_Bootloader/blob/master/00_Documents/imagens/img_bin.PNG" width="700"/>
