@@ -11,7 +11,7 @@ such as a USB stick or a network port. The bootloader and the user application s
 * 📂 [02_User_app_STM32F7xxx](https://github.com/mattsousaa/STM32F767ZI_Bootloader/tree/master/02_User_app_STM32F7xxx) - User test application.
 * 📂 [03_Host_app](https://github.com/mattsousaa/STM32F767ZI_Bootloader/tree/master/03_Host_app) - Python host application. 
 
-The binary of the test application must be contained in this same folder if the user wants to record it directly to the flash. Such an operation is known as **In application programming (IAP)**. 
+The binary of the test application must be contained in the same folder *03_Host_app* if the user wants to record it directly to the flash. Such an operation is known as **In application programming (IAP)**. 
 
 ## STM32F767ZI Memory Organization
 * Internal Flash memory also called as Embedded Flash memory of 2MB
