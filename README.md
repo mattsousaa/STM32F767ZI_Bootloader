@@ -5,6 +5,12 @@
 A bootloader is a special program which allows user application program to be updated. The new user application can be obtained using alternative download channels, 
 such as a USB stick or a network port. The bootloader and the user application should be written and built as two separate projects resulting in two separate executables. The main tasks of the bootloader are to reprogram/replace the user application, if necessary, and to jump to the user application to execute it. The user application doesn’t necessarily need to know the existence of the bootloader. The bootloader is usually placed at the chips flash base address, so that it will be executed by the CPU after reset. 
 
+## Project Organization
+* 📂 [00_Documents](https://github.com/mattsousaa/STM32F767ZI_Bootloader/tree/master/00_Documents) - Board and design reference manuals.
+* 📂 [01_Bootloader](https://github.com/mattsousaa/STM32F767ZI_Bootloader/tree/master/01_Bootloader) - Individual Bootloader project.
+* 📂 [02_User_app_STM32F7xxx](https://github.com/mattsousaa/STM32F767ZI_Bootloader/tree/master/02_User_app_STM32F7xxx) - User test application.
+* 📂 [03_Host_app](https://github.com/mattsousaa/STM32F767ZI_Bootloader/tree/master/03_Host_app) - Python host application. The binary of the test application must be contained in this same folder if the user wants to record it directly to the flash.
+
 ## STM32F767ZI Memory Organization
 * Internal Flash memory also called as Embedded Flash memory of 2MB
 * Internal SRAM1 of 368KB
