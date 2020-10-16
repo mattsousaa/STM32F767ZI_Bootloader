@@ -80,6 +80,7 @@ if(HAL_GPIO_ReadPin(USER_Btn_GPIO_Port, USER_Btn_Pin) == GPIO_PIN_SET){
 MEMORY
 {
   RAM     (xrw)    : ORIGIN = 0x20000000,   LENGTH = 512K
+  //FLASH    (rx)    : ORIGIN = 0x08000000,   LENGTH = 2048K
   FLASH    (rx)    : ORIGIN = 0x08008000,   LENGTH = 2048K
 }
 ```
